@@ -390,54 +390,55 @@
         </div>
     </div>
 
-    <!-- Student / Teacher Dashboard Modal -->
-    <div id="dashboard-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeDashboardModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+    <div id="dashboard-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="portal-heading">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl max-w-md w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button type="button" onclick="closeDashboardModal()" aria-label="Close portal" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
                 <i class="fa-solid fa-xmark text-lg"></i>
             </button>
-            <div class="flex items-center space-x-3 mb-6">
-                <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl font-bold shadow">
+            <div class="flex items-center space-x-3 mb-6 pr-8">
+                <div class="w-11 h-11 rounded-xl bg-brand-600 text-white flex items-center justify-center text-lg shadow">
                     <i class="fa-solid fa-user-graduate"></i>
                 </div>
                 <div>
-                    <h3 class="text-xl font-bold text-slate-900 dark:text-white" data-translate="dash_title">Shar Portal & Enrollment Hub</h3>
-                    <p class="text-xs text-slate-500 dark:text-slate-400" data-translate="dash_sub">Manage your enrolled courses, attendance, and certificates.</p>
+                    <h3 id="portal-heading" class="text-xl font-bold text-slate-900 dark:text-white">Portal sign in</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">Choose your account type to continue.</p>
                 </div>
             </div>
 
-            <!-- Portal Tabs / Content -->
-            <div class="space-y-6">
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
-                    <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2" data-translate="enrolled_courses_title">Your Active Enrollments</h4>
-                    <div id="enrolled-courses-list" class="space-y-3">
-                        <!-- Populated by JS -->
-                    </div>
+            <div id="portal-login-view">
+                <div id="portal-role-picker" class="grid grid-cols-2 gap-2 mb-5" role="group" aria-label="Account type">
+                    <button id="portal-student-role" type="button" aria-pressed="true" onclick="selectPortalRole('student')" class="rounded-lg border border-brand-600 bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white">Student</button>
+                    <button id="portal-teacher-role" type="button" aria-pressed="false" onclick="selectPortalRole('teacher')" class="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Teacher</button>
                 </div>
 
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
-                    <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2" data-translate="student_progress_title">Academic Progress Overview</h4>
-                    <div class="space-y-3 text-sm">
-                        <div>
-                            <div class="flex justify-between text-xs font-semibold mb-1">
-                                <span>GED Mathematical Reasoning</span>
-                                <span class="text-brand-600">78% Completed</span>
-                            </div>
-                            <div class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-                                <div class="bg-brand-600 h-full w-[78%] rounded-full"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="flex justify-between text-xs font-semibold mb-1">
-                                <span>IGCSE English Language</span>
-                                <span class="text-emerald-600">92% Completed</span>
-                            </div>
-                            <div class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
-                                <div class="bg-emerald-500 h-full w-[92%] rounded-full"></div>
-                            </div>
-                        </div>
+                <p id="portal-config-notice" class="hidden rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200" role="status">Sign in is not connected yet. Connect the Supabase project to activate student and teacher accounts.</p>
+                <p id="portal-auth-message" class="hidden mb-4 text-sm" role="status" aria-live="polite"></p>
+
+                <form id="portal-auth-form" class="space-y-4" onsubmit="submitPortalAuth(event)">
+                    <div id="portal-name-field" class="hidden">
+                        <label for="portal-name" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Your name</label>
+                        <input id="portal-name" type="text" autocomplete="name" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900 dark:text-white">
                     </div>
+                    <div>
+                        <label for="portal-email" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Email</label>
+                        <input id="portal-email" type="email" autocomplete="email" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                    </div>
+                    <div>
+                        <label for="portal-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Password</label>
+                        <input id="portal-password" type="password" autocomplete="current-password" minlength="8" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                    </div>
+                    <button id="portal-submit-button" type="submit" class="w-full rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">Sign in as student</button>
+                </form>
+                <button id="portal-mode-toggle" type="button" onclick="togglePortalMode()" class="mt-4 text-sm font-medium text-brand-700 hover:underline dark:text-brand-300">Create a student account</button>
+            </div>
+
+            <div id="portal-session-view" class="hidden">
+                <div class="rounded-xl border border-slate-200 bg-slate-50 p-5 dark:border-slate-700 dark:bg-slate-900">
+                    <p id="portal-session-role" class="text-xs font-bold uppercase text-brand-700 dark:text-brand-300"></p>
+                    <h4 id="portal-session-name" class="mt-2 text-lg font-bold text-slate-900 dark:text-white"></h4>
+                    <p id="portal-session-message" class="mt-2 text-sm text-slate-600 dark:text-slate-300"></p>
                 </div>
+                <button type="button" onclick="signOutPortal()" class="mt-5 w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">Sign out</button>
             </div>
         </div>
     </div>
@@ -494,11 +495,21 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         // --- State Management ---
+        const SUPABASE_URL = 'https://cmpxtfdhpsrytvutvrea.supabase.co';
+        const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_mO1ezaMkn64i-h_wURIBHg_Rixinj2_';
+        const supabaseClient = window.supabase?.createClient &&
+            SUPABASE_URL.startsWith('https://') &&
+            SUPABASE_PUBLISHABLE_KEY !== 'YOUR_SUPABASE_PUBLISHABLE_KEY'
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+            : null;
         let currentLang = 'en'; // 'en' or 'my'
         let darkMode = false;
         let enrolledCourseIds = [1, 3]; // Default enrolled courses
+        let portalRole = 'student';
+        let portalMode = 'signin';
 
         // Translations Dictionary
         const translations = {
@@ -1135,31 +1146,152 @@
             }
         }
 
-        // --- Dashboard Modal ---
-        function openDashboardModal() {
-            const listContainer = document.getElementById('enrolled-courses-list');
-            listContainer.innerHTML = '';
+        function showPortalMessage(message, isError = false) {
+            const messageElement = document.getElementById('portal-auth-message');
+            messageElement.textContent = message;
+            messageElement.classList.remove('hidden', 'text-red-600', 'text-emerald-600');
+            messageElement.classList.add(isError ? 'text-red-600' : 'text-emerald-600');
+        }
 
-            const enrolled = coursesData.filter(c => enrolledCourseIds.includes(c.id));
-            if (enrolled.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-slate-400">You are not currently enrolled in any courses.</p>`;
-            } else {
-                enrolled.forEach(c => {
-                    const item = document.createElement('div');
-                    item.className = "flex items-center justify-between bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs";
-                    item.innerHTML = `
-                        <div>
-                            <span class="font-bold text-slate-900 dark:text-white block">${c.title}</span>
-                            <span class="text-slate-500">Instructor: ${c.instructor}</span>
-                        </div>
-                        <span class="px-2.5 py-1 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold">Active</span>
-                    `;
-                    listContainer.appendChild(item);
-                });
+        function updatePortalMode() {
+            const isSignup = portalMode === 'signup';
+            const nameInput = document.getElementById('portal-name');
+            const submitButton = document.getElementById('portal-submit-button');
+            const modeToggle = document.getElementById('portal-mode-toggle');
+
+            document.getElementById('portal-name-field').classList.toggle('hidden', !isSignup);
+            nameInput.required = isSignup;
+            nameInput.autocomplete = isSignup ? 'name' : 'off';
+            document.getElementById('portal-password').autocomplete = isSignup ? 'new-password' : 'current-password';
+            submitButton.textContent = isSignup ? 'Create student account' : `Sign in as ${portalRole}`;
+            modeToggle.textContent = isSignup ? 'Already registered? Sign in' : 'Create a student account';
+            modeToggle.hidden = !supabaseClient || portalRole !== 'student';
+        }
+
+        function selectPortalRole(role) {
+            if (role !== 'student' && role !== 'teacher') return;
+
+            portalRole = role;
+            portalMode = 'signin';
+            const studentButton = document.getElementById('portal-student-role');
+            const teacherButton = document.getElementById('portal-teacher-role');
+            const selectedClasses = 'rounded-lg border border-brand-600 bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white';
+            const unselectedClasses = 'rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200';
+
+            studentButton.className = role === 'student' ? selectedClasses : unselectedClasses;
+            teacherButton.className = role === 'teacher' ? selectedClasses : unselectedClasses;
+            studentButton.setAttribute('aria-pressed', String(role === 'student'));
+            teacherButton.setAttribute('aria-pressed', String(role === 'teacher'));
+            document.getElementById('portal-auth-message').classList.add('hidden');
+            updatePortalMode();
+        }
+
+        function togglePortalMode() {
+            if (portalRole !== 'student') return;
+            portalMode = portalMode === 'signin' ? 'signup' : 'signin';
+            document.getElementById('portal-auth-message').classList.add('hidden');
+            updatePortalMode();
+        }
+
+        async function showPortalSession(user, requiredRole = null) {
+            const { data: profile, error } = await supabaseClient
+                .from('profiles')
+                .select('role, display_name')
+                .eq('id', user.id)
+                .single();
+
+            if (error || !profile) {
+                throw new Error('Your portal profile is not ready. Please contact the school.');
             }
 
-            document.getElementById('dashboard-modal').classList.remove('hidden');
-            document.getElementById('dashboard-modal').classList.add('flex');
+            if (requiredRole && profile.role !== requiredRole) {
+                await supabaseClient.auth.signOut();
+                throw new Error(`This account is registered as a ${profile.role}. Choose the matching sign-in type.`);
+            }
+
+            document.getElementById('portal-login-view').classList.add('hidden');
+            document.getElementById('portal-session-view').classList.remove('hidden');
+            document.getElementById('portal-session-role').textContent = profile.role;
+            document.getElementById('portal-session-name').textContent = profile.display_name || user.email;
+            document.getElementById('portal-session-message').textContent = profile.role === 'teacher'
+                ? 'You are signed in to the teacher portal.'
+                : 'You are signed in to the student portal.';
+        }
+
+        async function submitPortalAuth(event) {
+            event.preventDefault();
+            if (!supabaseClient) return;
+
+            const submitButton = document.getElementById('portal-submit-button');
+            const email = document.getElementById('portal-email').value.trim();
+            const password = document.getElementById('portal-password').value;
+            submitButton.disabled = true;
+            document.getElementById('portal-auth-message').classList.add('hidden');
+
+            try {
+                if (portalMode === 'signup') {
+                    const displayName = document.getElementById('portal-name').value.trim();
+                    const { data, error } = await supabaseClient.auth.signUp({
+                        email,
+                        password,
+                        options: { data: { display_name: displayName } }
+                    });
+                    if (error) throw error;
+
+                    if (data.session) {
+                        await showPortalSession(data.user, 'student');
+                    } else {
+                        showPortalMessage('Account created. Check your email to confirm it, then sign in.');
+                    }
+                } else {
+                    const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                    if (error) throw error;
+                    await showPortalSession(data.user, portalRole);
+                }
+            } catch (error) {
+                showPortalMessage(error.message || 'Sign in failed. Please try again.', true);
+            } finally {
+                submitButton.disabled = false;
+            }
+        }
+
+        async function signOutPortal() {
+            if (!supabaseClient) return;
+            const { error } = await supabaseClient.auth.signOut();
+            if (error) {
+                showPortalMessage(error.message, true);
+                return;
+            }
+            document.getElementById('portal-session-view').classList.add('hidden');
+            document.getElementById('portal-login-view').classList.remove('hidden');
+            selectPortalRole('student');
+        }
+
+        async function openDashboardModal() {
+            const modal = document.getElementById('dashboard-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            const isConfigured = Boolean(supabaseClient);
+            document.getElementById('portal-config-notice').classList.toggle('hidden', isConfigured);
+            document.getElementById('portal-role-picker').hidden = false;
+            document.getElementById('portal-auth-form').hidden = !isConfigured;
+            document.getElementById('portal-mode-toggle').hidden = !isConfigured;
+            if (!isConfigured) return;
+
+            selectPortalRole('student');
+            document.getElementById('portal-login-view').classList.remove('hidden');
+            document.getElementById('portal-session-view').classList.add('hidden');
+            const { data, error } = await supabaseClient.auth.getSession();
+            if (error) {
+                showPortalMessage(error.message, true);
+            } else if (data.session) {
+                try {
+                    await showPortalSession(data.session.user);
+                } catch (sessionError) {
+                    showPortalMessage(sessionError.message, true);
+                }
+            }
         }
 
         function closeDashboardModal() {
