@@ -414,7 +414,7 @@
                 <p id="portal-config-notice" class="hidden rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200" role="status">Sign in is not connected yet. Connect the Supabase project to activate student and teacher accounts.</p>
                 <p id="portal-auth-message" class="hidden mb-4 text-sm" role="status" aria-live="polite"></p>
 
-                <form id="portal-auth-form" class="space-y-4" onsubmit="submitPortalAuth(event)">
+                <form id="portal-auth-form" class="space-y-4" novalidate onsubmit="submitPortalAuth(event)">
                     <div id="portal-name-field" class="hidden">
                         <label for="portal-name" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Your name</label>
                         <input id="portal-name" type="text" autocomplete="name" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900 dark:text-white">
@@ -425,7 +425,7 @@
                     </div>
                     <div>
                         <label for="portal-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200">Password</label>
-                        <input id="portal-password" type="password" autocomplete="current-password" minlength="8" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                        <input id="portal-password" type="password" autocomplete="current-password" required class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm text-slate-900 focus:border-brand-500 focus:outline-none dark:border-slate-600 dark:bg-slate-900 dark:text-white">
                     </div>
                     <button id="portal-submit-button" type="submit" class="w-full rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2">Sign in as student</button>
                 </form>
@@ -1223,14 +1223,37 @@
             if (!supabaseClient) return;
 
             const submitButton = document.getElementById('portal-submit-button');
-            const email = document.getElementById('portal-email').value.trim();
+            const emailInput = document.getElementById('portal-email');
+            const email = emailInput.value.trim();
             const password = document.getElementById('portal-password').value;
+            const displayName = document.getElementById('portal-name').value.trim();
+
+            if (!email) {
+                showPortalMessage('Enter your email address.', true);
+                return;
+            }
+            if (!emailInput.validity.valid) {
+                showPortalMessage('Enter a valid email address.', true);
+                return;
+            }
+            if (!password) {
+                showPortalMessage('Enter your password.', true);
+                return;
+            }
+            if (portalMode === 'signup' && !displayName) {
+                showPortalMessage('Enter your name to create a student account.', true);
+                return;
+            }
+            if (portalMode === 'signup' && password.length < 8) {
+                showPortalMessage('Use at least 8 characters for a new password.', true);
+                return;
+            }
+
             submitButton.disabled = true;
             document.getElementById('portal-auth-message').classList.add('hidden');
 
             try {
                 if (portalMode === 'signup') {
-                    const displayName = document.getElementById('portal-name').value.trim();
                     const { data, error } = await supabaseClient.auth.signUp({
                         email,
                         password,
