@@ -1272,7 +1272,13 @@
                     await showPortalSession(data.user, portalRole);
                 }
             } catch (error) {
-                showPortalMessage(error.message || 'Sign in failed. Please try again.', true);
+                const errorMessage = error.message || '';
+                const message = /failed to fetch|network/i.test(errorMessage)
+                    ? 'The sign-in service could not be reached. Please try again later.'
+                    : errorMessage === 'Invalid login credentials'
+                        ? 'Email or password is incorrect, or the account has not been registered yet.'
+                        : errorMessage || 'Sign in failed. Please try again.';
+                showPortalMessage(message, true);
             } finally {
                 submitButton.disabled = false;
             }
