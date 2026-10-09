@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shar Education - GED, IGCSE & Academic Excellence</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Padauk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Padauk', sans-serif; }
+        .burmese-font { font-family: 'Padauk', 'Inter', sans-serif; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .dark ::-webkit-scrollbar-track { background: #1e293b; }
+        .dark ::-webkit-scrollbar-thumb { background: #475569; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 min-h-screen flex flex-col transition-colors duration-200">
+
+    <header class="sticky top-0 z-50 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('home')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">Shar Education</span>
+                    <span class="block text-[10px] text-slate-500 dark:text-slate-400 font-medium -mt-1" data-translate="nav_subtitle">Empowering Futures</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                <button onclick="switchTab('home')" id="nav-home" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-brand-600 dark:text-brand-400 bg-brand-50 dark:bg-slate-700 transition" data-translate="nav_home">Home</button>
+                <button onclick="switchTab('courses')" id="nav-courses" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-translate="nav_courses">Courses</button>
+                <button onclick="switchTab('schedule')" id="nav-schedule" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5"><i class="fa-solid fa-calendar-days text-xs text-amber-500"></i><span data-translate="nav_schedule">Live Classes</span></button>
+                <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center gap-1.5"><i class="fa-solid fa-brain text-xs text-emerald-500"></i><span data-translate="nav_quiz">GED Quiz</span></button>
+                <button onclick="switchTab('resources')" id="nav-resources" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-translate="nav_resources">Resources</button>
+                <button onclick="switchTab('community')" id="nav-community" class="nav-btn px-3 py-2 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 hover:bg-slate-100 dark:hover:bg-slate-700 transition" data-translate="nav_community">Q&A Board</button>
+            </nav>
+
+            <!-- Utility Controls (Language, Theme, Dashboard) -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- Language Toggle -->
+                <button onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-semibold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-600 transition flex items-center gap-1.5 shadow-sm">
+                    <i class="fa-solid fa-globe text-brand-500"></i>
+                    <span id="lang-label">မြန်မာ</span>
+                </button>
+
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()" id="theme-btn" class="w-9 h-9 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-700 text-slate-700 dark:text-yellow-400 flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-600 transition shadow-sm">
+                    <i class="fa-solid fa-moon dark:hidden"></i>
+                    <i class="fa-solid fa-sun hidden dark:block"></i>
+                </button>
+
+                <!-- Dashboard Switch Button -->
+                <button onclick="openDashboardModal()" class="px-3.5 py-2 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-sm font-semibold shadow-sm hover:shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-user-circle"></i>
+                    <span class="hidden sm:inline" data-translate="nav_portal">Portal</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="md:hidden p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 pt-2 pb-4 space-y-1">
+            <button onclick="switchTab('home'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="nav_home">Home</button>
+            <button onclick="switchTab('courses'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="nav_courses">Courses</button>
+            <button onclick="switchTab('schedule'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="nav_schedule">Live Classes</button>
+            <button onclick="switchTab('quiz'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="nav_quiz">GED Quiz</button>
+            <button onclick="switchTab('resources'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="nav_resources">Resources</button>
+            <button onclick="switchTab('community'); toggleMobileMenu();" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="nav_community">Q&A Board</button>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+
+        <!-- TAB 1: HOME -->
+        <section id="tab-home" class="tab-content">
+            <!-- Hero Banner -->
+            <div class="relative bg-gradient-to-r from-brand-900 via-brand-800 to-indigo-900 text-white overflow-hidden py-20 lg:py-28">
+                <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="space-y-6">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/20 border border-brand-400/30 text-brand-200">
+                            <i class="fa-solid fa-award"></i> <span data-translate="hero_badge">Leading Online Academy in Myanmar</span>
+                        </span>
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
+                            <span data-translate="hero_title_1">Unlock Your Global Education with</span> <span class="text-brand-400">Shar Education</span>
+                        </h1>
+                        <p class="text-lg text-slate-300 max-w-xl" data-translate="hero_desc">
+                            Professional GED, IGCSE, English Language and University Foundation coaching designed for ambitious students aiming for international success.
+                        </p>
+                        <div class="flex flex-wrap gap-4 pt-2">
+                            <button onclick="switchTab('courses')" class="px-6 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-semibold shadow-lg hover:shadow-brand-500/25 transition flex items-center gap-2">
+                                <span data-translate="hero_btn_explore">Explore Courses</span> <i class="fa-solid fa-arrow-right text-sm"></i>
+                            </button>
+                            <button onclick="switchTab('quiz')" class="px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/25 border border-white/20 text-white font-semibold backdrop-blur-sm transition flex items-center gap-2">
+                                <i class="fa-solid fa-brain text-emerald-400"></i> <span data-translate="hero_btn_quiz">Take GED Quiz</span>
+                            </button>
+                        </div>
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-3 gap-4 pt-8 border-t border-white/10">
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-white">98%</div>
+                                <div class="text-xs text-slate-400" data-translate="stat_pass">Pass Rate</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-white">1,500+</div>
+                                <div class="text-xs text-slate-400" data-translate="stat_students">Alumni Students</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl sm:text-3xl font-bold text-white">15+</div>
+                                <div class="text-xs text-slate-400" data-translate="stat_experts">Expert Instructors</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Hero Graphic Card -->
+                    <div class="relative">
+                        <div class="bg-slate-800/80 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-slate-700 shadow-2xl relative">
+                            <div class="absolute -top-4 -right-4 bg-emerald-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1">
+                                <i class="fa-solid fa-bolt"></i> <span data-translate="live_now_badge">Live Sessions Active</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-calendar-check text-brand-400"></i> <span data-translate="upcoming_classes_title">Upcoming Featured Class</span>
+                            </h3>
+                            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700 mb-4">
+                                <div class="flex justify-between items-start mb-2">
+                                    <span class="text-xs font-semibold px-2.5 py-1 rounded bg-brand-600/30 text-brand-300 border border-brand-500/30">GED Math</span>
+                                    <span class="text-xs text-emerald-400 font-mono font-bold flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Starting Soon</span>
+                                </div>
+                                <h4 class="font-bold text-white text-base">Algebraic Expressions & Quadratic Equations</h4>
+                                <p class="text-xs text-slate-400 mt-1">Instructor: Daw Zin Mar Win (M.Sc. Mathematics)</p>
+                            </div>
+                            <button onclick="switchTab('schedule')" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-center transition block shadow">
+                                <span data-translate="view_all_schedule">View Full Live Timetable</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Highlights Section -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white" data-translate="features_heading">Why Choose Shar Education?</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2 text-sm sm:text-base" data-translate="features_sub">Everything you need to accelerate your academic journey in one comprehensive platform.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center text-xl mb-4 font-bold">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-2" data-translate="feat_1_title">Expert Instructors</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm" data-translate="feat_1_desc">Learn directly from certified educators with extensive international curriculum experience.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4 font-bold">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-2" data-translate="feat_2_title">Diagnostic GED Quizzes</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm" data-translate="feat_2_desc">Test your readiness instantly with our interactive diagnostic quiz engine and score reports.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-amber-50 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4 font-bold">
+                            <i class="fa-solid fa-video"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-2" data-translate="feat_3_title">Live Class Timers</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm" data-translate="feat_3_desc">Never miss a lecture with real-time countdown timers and direct Zoom/Meet access.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition">
+                        <div class="w-12 h-12 rounded-xl bg-purple-50 dark:bg-purple-900/40 text-purple-600 dark:text-purple-400 flex items-center justify-center text-xl mb-4 font-bold">
+                            <i class="fa-solid fa-comments"></i>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-2" data-translate="feat_4_title">Community Q&A Board</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm" data-translate="feat_4_desc">Ask academic questions, collaborate with peers, and get verified answers from teachers.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: COURSES CATALOG -->
+        <section id="tab-courses" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white" data-translate="courses_heading">Our Academic Programs</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mt-1" data-translate="courses_sub">Choose your target certification or skill development course.</p>
+                </div>
+                <!-- Filter Pills -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterCourses('all')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow-sm transition" data-translate="filter_all">All Programs</button>
+                    <button onclick="filterCourses('GED')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition" data-translate="filter_ged">GED Prep</button>
+                    <button onclick="filterCourses('IGCSE')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition" data-translate="filter_igcse">IGCSE</button>
+                    <button onclick="filterCourses('English')" class="course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition" data-translate="filter_english">English & Skills</button>
+                </div>
+            </div>
+
+            <!-- Courses Grid -->
+            <div id="courses-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically populated via JS -->
+            </div>
+        </section>
+
+        <!-- TAB 3: LIVE CLASS SCHEDULE & TIMERS -->
+        <section id="tab-schedule" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="mb-8">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
+                    <i class="fa-solid fa-calendar-days text-brand-600"></i> <span data-translate="schedule_heading">Live Class Schedule & Timers</span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm mt-1" data-translate="schedule_sub">Track upcoming live Zoom / Google Meet lectures with live countdown timers.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Left 2 Cols: Live Class List -->
+                <div class="lg:col-span-2 space-y-4" id="live-classes-container">
+                    <!-- Populated by JS -->
+                </div>
+
+                <!-- Right Col: Today's Summary & Quick Join -->
+                <div class="space-y-6">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-info text-brand-500"></i> <span data-translate="class_info_title">Class Guidelines</span>
+                        </h3>
+                        <ul class="space-y-3 text-sm text-slate-600 dark:text-slate-300">
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span data-translate="guideline_1">Join 5 minutes before scheduled start time.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span data-translate="guideline_2">Have your textbook and notebook ready.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fa-solid fa-check text-emerald-500 mt-1"></i>
+                                <span data-translate="guideline_3">Recordings are uploaded to the student portal within 24 hours.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Meeting Link Card -->
+                    <div class="bg-gradient-to-br from-brand-600 to-indigo-700 p-6 rounded-2xl text-white shadow-lg">
+                        <h3 class="font-bold text-lg mb-2" data-translate="instant_room_title">Need Instant Help?</h3>
+                        <p class="text-xs text-blue-100 mb-4" data-translate="instant_room_desc">Join our virtual study lounge or book a 1-on-1 tutoring session with your instructor.</p>
+                        <button onclick="showNotification('Redirecting to virtual study lounge...', 'success')" class="w-full py-3 rounded-xl bg-white text-brand-700 font-semibold text-center hover:bg-blue-50 transition text-sm shadow">
+                            <span data-translate="join_lounge_btn">Enter Virtual Study Lounge</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: GED READINESS QUIZ WIDGET -->
+        <section id="tab-quiz" class="tab-content hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden">
+                <!-- Quiz Header -->
+                <div class="bg-gradient-to-r from-brand-600 to-indigo-600 p-6 sm:p-8 text-white">
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-white/20 mb-2" data-translate="quiz_badge">Mini-Diagnostic Assessment</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold" data-translate="quiz_title">GED Readiness Diagnostic Quiz</h2>
+                    <p class="text-sm text-blue-100 mt-1" data-translate="quiz_subtitle">Test your foundational knowledge across Math, Reasoning, and Science.</p>
+                </div>
+
+                <!-- Quiz Body -->
+                <div class="p-6 sm:p-8" id="quiz-container">
+                    <!-- Initial state / Question Rendered by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 5: RESOURCES LIBRARY -->
+        <section id="tab-resources" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white" data-translate="resources_heading">Marketing & Study Resource Library</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mt-1" data-translate="resources_sub">Download official syllabus PDFs, textbooks, past papers, and study guides.</p>
+                </div>
+                <!-- Resource Filter -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterResources('all')" class="res-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow-sm transition" data-translate="res_filter_all">All Materials</button>
+                    <button onclick="filterResources('PDF')" class="res-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition">PDF Guides</button>
+                    <button onclick="filterResources('Syllabus')" class="res-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition">Syllabus</button>
+                    <button onclick="filterResources('Link')" class="res-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition">External Links</button>
+                </div>
+            </div>
+
+            <!-- Resources Grid -->
+            <div id="resources-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+        <!-- TAB 6: COMMUNITY Q&A DISCUSSION BOARD -->
+        <section id="tab-community" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+                        <i class="fa-solid fa-comments text-brand-600"></i> <span data-translate="community_heading">Community Q&A Board</span>
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mt-1" data-translate="community_sub">Ask academic questions, collaborate with peers, and get verified answers from expert instructors.</p>
+                </div>
+                <button onclick="openAskQuestionModal()" class="px-4 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow transition flex items-center gap-2">
+                    <i class="fa-solid fa-plus"></i> <span data-translate="ask_question_btn">Ask a Question</span>
+                </button>
+            </div>
+
+            <!-- Search & Filter Bar -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm mb-6 flex flex-col sm:flex-row gap-3 items-center justify-between">
+                <div class="relative w-full sm:w-96">
+                    <i class="fa-solid fa-search absolute left-3.5 top-3 text-slate-400"></i>
+                    <input type="text" id="qa-search" oninput="renderCommunityPosts()" placeholder="Search questions by keyword or topic..." class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                </div>
+                <div class="flex gap-2 w-full sm:w-auto">
+                    <select id="qa-filter" onchange="renderCommunityPosts()" class="px-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500">
+                        <option value="all" data-translate="qa_all">All Topics</option>
+                        <option value="GED Math">GED Math</option>
+                        <option value="GED Science">GED Science</option>
+                        <option value="IGCSE English">IGCSE English</option>
+                        <option value="University Prep">University Prep</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Posts Feed Container -->
+            <div id="community-posts-container" class="space-y-4">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Ask Question Modal -->
+    <div id="ask-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-lg w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative">
+            <button onclick="closeAskQuestionModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-4" data-translate="modal_ask_title">Ask the Shar Education Community</h3>
+            <form onsubmit="handlePostQuestion(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1" data-translate="modal_author">Your Name / Student ID</label>
+                    <input type="text" id="q-author" required placeholder="e.g. Mg Mg or Student #1042" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1" data-translate="modal_topic">Topic / Category</label>
+                    <select id="q-topic" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm text-slate-700 dark:text-slate-300 focus:outline-none focus:border-brand-500">
+                        <option value="GED Math">GED Math</option>
+                        <option value="GED Science">GED Science</option>
+                        <option value="IGCSE English">IGCSE English</option>
+                        <option value="University Prep">University Prep</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1" data-translate="modal_question">Your Question</label>
+                    <textarea id="q-content" required rows="4" placeholder="Describe your academic question clearly..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-brand-500"></textarea>
+                </div>
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeAskQuestionModal()" class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-translate="modal_cancel">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow" data-translate="modal_submit">Post Question</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Student / Teacher Dashboard Modal -->
+    <div id="dashboard-modal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl max-w-3xl w-full p-6 sm:p-8 border border-slate-200 dark:border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeDashboardModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-6">
+                <div class="w-12 h-12 rounded-2xl bg-brand-600 text-white flex items-center justify-center text-xl font-bold shadow">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white" data-translate="dash_title">Shar Portal & Enrollment Hub</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400" data-translate="dash_sub">Manage your enrolled courses, attendance, and certificates.</p>
+                </div>
+            </div>
+
+            <!-- Portal Tabs / Content -->
+            <div class="space-y-6">
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2" data-translate="enrolled_courses_title">Your Active Enrollments</h4>
+                    <div id="enrolled-courses-list" class="space-y-3">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-700">
+                    <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2" data-translate="student_progress_title">Academic Progress Overview</h4>
+                    <div class="space-y-3 text-sm">
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>GED Mathematical Reasoning</span>
+                                <span class="text-brand-600">78% Completed</span>
+                            </div>
+                            <div class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                                <div class="bg-brand-600 h-full w-[78%] rounded-full"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs font-semibold mb-1">
+                                <span>IGCSE English Language</span>
+                                <span class="text-emerald-600">92% Completed</span>
+                            </div>
+                            <div class="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                                <div class="bg-emerald-500 h-full w-[92%] rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl transform translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-sm font-medium">Notification message</span>
+    </div>
+
+    <footer class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div class="space-y-3 md:col-span-1">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 rounded-lg bg-brand-600 text-white flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                    </div>
+                    <span class="text-lg font-bold text-slate-900 dark:text-white">Shar Education</span>
+                </div>
+                <p class="text-xs text-slate-600 dark:text-slate-400" data-translate="footer_about">Empowering students across Myanmar with world-class online GED, IGCSE, and academic preparation.</p>
+            </div>
+            <div>
+                <h4 class="font-semibold text-slate-900 dark:text-white text-sm mb-3" data-translate="footer_links">Quick Links</h4>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                    <li><button onclick="switchTab('home')" class="hover:text-brand-600" data-translate="nav_home">Home</button></li>
+                    <li><button onclick="switchTab('courses')" class="hover:text-brand-600" data-translate="nav_courses">Courses</button></li>
+                    <li><button onclick="switchTab('schedule')" class="hover:text-brand-600" data-translate="nav_schedule">Live Classes</button></li>
+                    <li><button onclick="switchTab('quiz')" class="hover:text-brand-600" data-translate="nav_quiz">GED Quiz</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-slate-900 dark:text-white text-sm mb-3" data-translate="footer_resources">Resources & Community</h4>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                    <li><button onclick="switchTab('resources')" class="hover:text-brand-600" data-translate="nav_resources">Resource Library</button></li>
+                    <li><button onclick="switchTab('community')" class="hover:text-brand-600" data-translate="nav_community">Q&A Board</button></li>
+                    <li><button onclick="openDashboardModal()" class="hover:text-brand-600" data-translate="nav_portal">Student Portal</button></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-semibold text-slate-900 dark:text-white text-sm mb-3" data-translate="footer_contact">Contact Us</h4>
+                <ul class="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+                    <li><i class="fa-solid fa-envelope mr-1.5 text-brand-500"></i> support@shareducation.edu.mm</li>
+                    <li><i class="fa-solid fa-phone mr-1.5 text-brand-500"></i> +95 9 790 123 456</li>
+                    <li><i class="fa-solid fa-location-dot mr-1.5 text-brand-500"></i> Yankin Township, Yangon, Myanmar</li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-slate-100 dark:border-slate-700/60 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500">
+            <p>&copy; 2026 Shar Education. All rights reserved.</p>
+            <div class="flex space-x-4 mt-2 sm:mt-0">
+                <a href="#" class="hover:text-brand-600">Privacy Policy</a>
+                <a href="#" class="hover:text-brand-600">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- State Management ---
+        let currentLang = 'en'; // 'en' or 'my'
+        let darkMode = false;
+        let enrolledCourseIds = [1, 3]; // Default enrolled courses
+
+        // Translations Dictionary
+        const translations = {
+            en: {
+                nav_subtitle: "Empowering Futures",
+                nav_home: "Home",
+                nav_courses: "Courses",
+                nav_schedule: "Live Classes",
+                nav_quiz: "GED Quiz",
+                nav_resources: "Resources",
+                nav_community: "Q&A Board",
+                nav_portal: "Portal",
+                hero_badge: "Leading Online Academy in Myanmar",
+                hero_title_1: "Unlock Your Global Education with",
+                hero_desc: "Professional GED, IGCSE, English Language and University Foundation coaching designed for ambitious students aiming for international success.",
+                hero_btn_explore: "Explore Courses",
+                hero_btn_quiz: "Take GED Quiz",
+                stat_pass: "Pass Rate",
+                stat_students: "Alumni Students",
+                stat_experts: "Expert Instructors",
+                live_now_badge: "Live Sessions Active",
+                upcoming_classes_title: "Upcoming Featured Class",
+                view_all_schedule: "View Full Live Timetable",
+                features_heading: "Why Choose Shar Education?",
+                features_sub: "Everything you need to accelerate your academic journey in one comprehensive platform.",
+                feat_1_title: "Expert Instructors",
+                feat_1_desc: "Learn directly from certified educators with extensive international curriculum experience.",
+                feat_2_title: "Diagnostic GED Quizzes",
+                feat_2_desc: "Test your readiness instantly with our interactive diagnostic quiz engine and score reports.",
+                feat_3_title: "Live Class Timers",
+                feat_3_desc: "Never miss a lecture with real-time countdown timers and direct Zoom/Meet access.",
+                feat_4_title: "Community Q&A Board",
+                feat_4_desc: "Ask academic questions, collaborate with peers, and get verified answers from teachers.",
+                courses_heading: "Our Academic Programs",
+                courses_sub: "Choose your target certification or skill development course.",
+                filter_all: "All Programs",
+                filter_ged: "GED Prep",
+                filter_igcse: "IGCSE",
+                filter_english: "English & Skills",
+                schedule_heading: "Live Class Schedule & Timers",
+                schedule_sub: "Track upcoming live Zoom / Google Meet lectures with live countdown timers.",
+                class_info_title: "Class Guidelines",
+                guideline_1: "Join 5 minutes before scheduled start time.",
+                guideline_2: "Have your textbook and notebook ready.",
+                guideline_3: "Recordings are uploaded to the student portal within 24 hours.",
+                instant_room_title: "Need Instant Help?",
+                instant_room_desc: "Join our virtual study lounge or book a 1-on-1 tutoring session with your instructor.",
+                join_lounge_btn: "Enter Virtual Study Lounge",
+                quiz_badge: "Mini-Diagnostic Assessment",
+                quiz_title: "GED Readiness Diagnostic Quiz",
+                quiz_subtitle: "Test your foundational knowledge across Math, Reasoning, and Science.",
+                resources_heading: "Marketing & Study Resource Library",
+                resources_sub: "Download official syllabus PDFs, textbooks, past papers, and study guides.",
+                res_filter_all: "All Materials",
+                community_heading: "Community Q&A Board",
+                community_sub: "Ask academic questions, collaborate with peers, and get verified answers from expert instructors.",
+                ask_question_btn: "Ask a Question",
+                qa_all: "All Topics",
+                modal_ask_title: "Ask the Shar Education Community",
+                modal_author: "Your Name / Student ID",
+                modal_topic: "Topic / Category",
+                modal_question: "Your Question",
+                modal_cancel: "Cancel",
+                modal_submit: "Post Question",
+                dash_title: "Shar Portal & Enrollment Hub",
+                dash_sub: "Manage your enrolled courses, attendance, and certificates.",
+                enrolled_courses_title: "Your Active Enrollments",
+                student_progress_title: "Academic Progress Overview",
+                footer_about: "Empowering students across Myanmar with world-class online GED, IGCSE, and academic preparation.",
+                footer_links: "Quick Links",
+                footer_resources: "Resources & Community",
+                footer_contact: "Contact Us"
+            },
+            my: {
+                nav_subtitle: "အနာဂတ်ကို ဖန်တီးပါ",
+                nav_home: "ပင်မစာမျက်နှာ",
+                nav_courses: "သင်တန်းများ",
+                nav_schedule: "တိုက်ရိုက်သင်တန်းချိန်",
+                nav_quiz: "GED စာမေးပွဲစမ်းသပ်ရန်",
+                nav_resources: "စာအုပ်နှင့် ဖိုင်များ",
+                nav_community: "မေးခွန်းနှင့် အဖြေများ",
+                nav_portal: "ကျောင်းသားစင်တာ",
+                hero_badge: "မြန်မာနိုင်ငံ၏ ထိပ်တန်း အွန်လိုင်းသင်တန်းကျောင်း",
+                hero_title_1: "Shar Education ဖြင့် သင်၏ နိုင်ငံတကာ ပညာရေးကို",
+                hero_desc: "GED, IGCSE, အင်္ဂလိပ်စာနှင့် တက္ကသိုလ်ဝင်တန်း အကြိုသင်တန်းများကို ကျွမ်းကျင်ဆရာကြီးများဖြင့် စနစ်တကျ သင်ကြားပေးနေပါသည်။",
+                hero_btn_explore: "သင်တန်းများ ကြည့်ရန်",
+                hero_btn_quiz: "GED စစ်ဆေးမှု ဖြေဆိုရန်",
+                stat_pass: "အောင်မြင်မှုနှုန်း",
+                stat_students: "ကျောင်းသားဟောင်းများ",
+                stat_experts: "ကျွမ်းကျင်ဆရာများ",
+                live_now_badge: "ယခု တိုက်ရိုက်သင်ကြားနေဆဲ",
+                upcoming_classes_title: "လာမည့် အထူးသင်တန်းချိန်",
+                view_all_schedule: "အချိန်ဇယား အပြည့်အစုံ ကြည့်ရန်",
+                features_heading: "ဘာကြောင့် Shar Education ကို ရွေးချယ်သင့်တာလဲ?",
+                features_sub: "သင့်ရဲ့ ပညာရေးအောင်မြင်မှုအတွက် လိုအပ်သမျှ အားလုံးကို တစ်နေရာတည်းမှာ ရရှိနိုင်ပါတယ်။",
+                feat_1_title: "ကျွမ်းကျင်ဆရာများ",
+                feat_1_desc: "နိုင်ငံတကာ သင်ရိုးညွှန်းတမ်းများနှင့် အတွေ့အကြုံရင့် ဆရာဆရာမများက တိုက်ရိုက်သင်ကြားပေးပါသည်။",
+                feat_2_title: "GED စွမ်းရည်စစ်ဆေးချက်များ",
+                feat_2_desc: "သင်၏ လက်ရှိအဆင့်အတန်းကို ချက်ချင်းစစ်ဆေးနိုင်သော Quiz များဖြင့် လေ့ကျင့်ပါ။",
+                feat_3_title: "တိုက်ရိုက် သင်တန်းချိန်များ",
+                feat_3_desc: "Zoom နှင့် Google Meet လင့်ခ်များကို အချိန်ကိုက် တိုက်ရိုက်ဝင်ရောက်နိုင်ပါသည်။",
+                feat_4_title: "ဆွေးနွေးတိုင်ပင်ရန် Q&A",
+                feat_4_desc: "သင်ခန်းစာများနှင့် ပတ်သက်ပြီး မေးမြန်းဆွေးနွေးနိုင်သော ကျောင်းသားအသိုင်းအဝိုင်း။",
+                courses_heading: "ကျွန်ုပ်တို့၏ သင်တန်းအစီအစဉ်များ",
+                courses_sub: "သင်တက်ရောက်လိုသော သင်ရိုးညွှန်းတမ်းကို ရွေးချယ်ပါ။",
+                filter_all: "သင်တန်းအားလုံး",
+                filter_ged: "GED ပြင်ဆင်မှု",
+                filter_igcse: "IGCSE သင်ရိုး",
+                filter_english: "အင်္ဂလိပ်စာနှင့် စွမ်းရည်",
+                schedule_heading: "တိုက်ရိုက် သင်တန်းအချိန်ဇယားနှင့် တိုင်မာများ",
+                schedule_sub: "Zoom နှင့် Google Meet တိုက်ရိုက်သင်တန်းချိန်များကို အချိန်နှင့်တပြေးညီ ကြည့်ရှုပါ။",
+                class_info_title: "သင်တန်းဝင်ရောက်ရန် လမ်းညွှန်ချက်များ",
+                guideline_1: "သင်တန်းစတင်ချိန် မတိုင်မီ ၅ မိနစ်စော၍ ဝင်ရောက်ပါ။",
+                guideline_2: "စာအုပ်နှင့် မှတ်စုစာအုပ် အသင့်ပြင်ဆင်ထားပါ။",
+                guideline_3: "သင်ခန်းစာ ဗီဒီယိုများကို ၂၄ နာရီအတွင်း တင်ပေးပါမည်။",
+                instant_room_title: "အမြန်ဆုံး အကူအညီ လိုအပ်ပါသလား?",
+                instant_room_desc: "ကျွန်ုပ်တို့၏ Virtual Study Lounge သို့ ဝင်ရောက်ပါ သို့မဟုတ် ဆရာများနှင့် သီးသန့်ချိန်းဆိုပါ။",
+                join_lounge_btn: "Study Lounge သို့ ဝင်မည်",
+                quiz_badge: "အဆင့်စစ်ဆေးမှု",
+                quiz_title: "GED Readiness Diagnostic Quiz",
+                quiz_subtitle: "သင်္ချာ၊ သိပ္ပံနှင့် အခြားဘာသာရပ်များအတွက် သင့်အသိပညာအဆင့်အတန်းကို စမ်းသပ်ပါ။",
+                resources_heading: "သင်ထောက်ကူပစ္စည်းများနှင့် စာအုပ်များ",
+                resources_sub: "တရားဝင် ဆီလဘတ်စ် PDFs များ၊ ကျောင်းသုံးစာအုပ်များနှင့် လေ့ကျင့်ခန်းစာရွက်များ ရယူပါ။",
+                res_filter_all: "အားလုံး",
+                community_heading: "ကျောင်းသားနှင့် ဆရာများ ဆွေးနွေးရန် Q&A",
+                community_sub: "ပညာရေးဆိုင်ရာ မေးခွန်းများမေးမြန်းခြင်းနှင့် အပြန်အလှန် ဆွေးနွေးနိုင်ပါသည်။",
+                ask_question_btn: "မေးခွန်းအသစ် မေးရန်",
+                qa_all: "ခေါင်းစဉ်အားလုံး",
+                modal_ask_title: "Shar Education အသိုင်းအဝိုင်းသို့ မေးခွန်းမေးရန်",
+                modal_author: "သင့်အမည် / ကျောင်းသားနံပါတ်",
+                modal_topic: "ဘာသာရပ်ခေါင်းစဉ်",
+                modal_question: "သင်မေးလိုသည့် မေးခွန်း",
+                modal_cancel: "ပယ်ဖျက်မည်",
+                modal_submit: "မေးခွန်းတင်မည်",
+                dash_title: "ကျောင်းသားကိုယ်ရေးအချက်အလက် စင်တာ",
+                dash_sub: "သင်တန်းအပ်နှံမှုများ၊ တက်ရောက်မှုနှင့် အောင်လက်မှတ်များ စီမံရန်။",
+                enrolled_courses_title: "သင်အပ်နှံထားသော သင်တန်းများ",
+                student_progress_title: "လေ့လာမှု တိုးတက်မှု အခြေအနေ",
+                footer_about: "မြန်မာနိုင်ငံတစ်ဝှမ်းမှ ကျောင်းသားကျောင်းသူများအတွက် နိုင်ငံတကာအဆင့်မီ GED နှင့် IGCSE ပညာရေးဝန်ဆောင်မှု။",
+                footer_links: "အမြန်လင့်ခ်များ",
+                footer_resources: "အရင်းအမြစ်များနှင့် အသိုင်းအဝိုင်း",
+                footer_contact: "ဆက်သွယ်ရန်"
+            }
+        };
+
+        // --- Mock Data ---
+        const coursesData = [
+            { id: 1, title: 'GED Mathematical Reasoning', category: 'GED', level: 'Intermediate', duration: '3 Months', instructor: 'Daw Zin Mar Win', price: '$150', desc: 'Master algebra, geometry, data analysis and word problems with proven problem-solving shortcuts.' },
+            { id: 2, title: 'GED Science & Social Studies', category: 'GED', level: 'Beginner', duration: '2.5 Months', instructor: 'U Kyaw Swar Htet', price: '$130', desc: 'Comprehensive coverage of life science, physical science, US history, civics and geography.' },
+            { id: 3, title: 'IGCSE English First Language', category: 'IGCSE', level: 'Advanced', duration: '4 Months', instructor: 'Ms. Emily Watson', price: '$180', desc: 'Rigorous training in directed writing, creative prose, composition, and reading comprehension.' },
+            { id: 4, title: 'IGCSE Mathematics (Extended)', category: 'IGCSE', level: 'Advanced', duration: '4 Months', instructor: 'U Myo Min Tun', price: '$180', desc: 'Complete syllabus coverage for Cambridge IGCSE 0580 extended tier with past paper drills.' },
+            { id: 5, title: 'Conversational English & IELTS Prep', category: 'English', level: 'All Levels', duration: '3 Months', instructor: 'Daw Su Myat Mon', price: '$120', desc: 'Boost fluency, pronunciation, listening comprehension, and academic IELTS writing skills.' },
+            { id: 6, title: 'GED Language Arts (RLA)', category: 'GED', level: 'Intermediate', duration: '3 Months', instructor: 'Ms. Sarah Jenkins', price: '$150', desc: 'Argument analysis, grammar mastery, essay outlining, and reading comprehension strategies.' }
+        ];
+
+        const liveClassesData = [
+            { id: 1, title: 'GED Math: Quadratic Equations & Functions', instructor: 'Daw Zin Mar Win', date: 'Today', time: '07:00 PM - 08:30 PM', platform: 'Zoom Meeting', link: '#', timestamp: Date.now() + 1000 * 60 * 35 }, // 35 mins from now
+            { id: 2, title: 'IGCSE English: Directed Writing Masterclass', instructor: 'Ms. Emily Watson', date: 'Tomorrow', time: '04:00 PM - 05:30 PM', platform: 'Google Meet', link: '#', timestamp: Date.now() + 1000 * 60 * 60 * 22 }, // 22 hours from now
+            { id: 3, title: 'GED Science: Ecosystems & Energy Flow', instructor: 'U Kyaw Swar Htet', date: 'Oct 8, 2026', time: '06:00 PM - 07:30 PM', platform: 'Zoom Meeting', link: '#', timestamp: Date.now() + 1000 * 60 * 60 * 48 },
+            { id: 4, title: 'IELTS Academic Writing Task 2 Strategy', instructor: 'Daw Su Myat Mon', date: 'Oct 9, 2026', time: '08:00 PM - 09:30 PM', platform: 'Zoom Meeting', link: '#', timestamp: Date.now() + 1000 * 60 * 60 * 72 }
+        ];
+
+        const resourcesData = [
+            { id: 1, title: 'Official GED® Test Study Guide 2026 Edition', type: 'PDF', category: 'GED', size: '24 MB', downloads: '1,420' },
+            { id: 2, title: 'Cambridge IGCSE Mathematics 0580 Syllabus & Formulae', type: 'PDF', category: 'IGCSE', size: '5.2 MB', downloads: '980' },
+            { id: 3, title: 'Shar Education GED Science Practice Test Bank', type: 'PDF', category: 'GED', size: '12.8 MB', downloads: '2,150' },
+            { id: 4, title: 'Cambridge IGCSE English Literature Past Papers (2023-2025)', type: 'Syllabus', category: 'IGCSE', size: '18.4 MB', downloads: '890' },
+            { id: 5, title: 'Interactive Online Math Formula Solver Tool', type: 'Link', category: 'Tools', size: 'Web App', downloads: '3,400' },
+            { id: 6, title: 'Burmese-English Academic Vocabulary Flashcard Deck', type: 'PDF', category: 'English', size: '4.1 MB', downloads: '1,120' }
+        ];
+
+        let communityPosts = [
+            { id: 1, author: 'Aung Kyaw Thu (Student #1021)', topic: 'GED Math', time: '2 hours ago', content: 'Can someone explain how to solve quadratic equations when a != 1 using the factoring method?', replies: [
+                { author: 'Daw Zin Mar Win (Instructor)', time: '1 hour ago', content: 'Great question Aung Kyaw Thu! When a != 1, you can use the AC method (grouping) or the quadratic formula x = (-b ± √(b² - 4ac)) / 2a. Let us review this in tonight live session!' }
+            ]},
+            { id: 2, author: 'Nilar Win', topic: 'IGCSE English', time: '5 hours ago', content: 'What is the word limit recommendation for Cambridge IGCSE English Directed Writing Paper 2?', replies: [
+                { author: 'Ms. Emily Watson (Instructor)', time: '3 hours ago', content: 'The recommended length is between 250 to 350 words. Focus on concise, persuasive vocabulary rather than lengthy paragraphs.' }
+            ]},
+            { id: 3, author: 'Min Khant', topic: 'University Prep', time: '1 day ago', content: 'Are GED transcripts fully accepted by universities in Thailand and Singapore?', replies: [] }
+        ];
+
+        // Quiz Questions
+        const quizQuestions = [
+            {
+                question: "1. If 3x + 7 = 22, what is the value of x?",
+                options: ["3", "5", "7", "15"],
+                answer: 1, // index of '5'
+                explanation: "Subtract 7 from both sides: 3x = 15. Divide by 3: x = 5."
+            },
+            {
+                question: "2. Which of the following is considered a renewable energy source?",
+                options: ["Natural Gas", "Coal", "Solar Power", "Nuclear Fission"],
+                answer: 2,
+                explanation: "Solar power harnesses limitless energy from the sun, making it renewable unlike fossil fuels."
+            },
+            {
+                question: "3. In an English persuasive essay, what does the acronym 'AFOREST' typically help writers include?",
+                options: ["Mathematical formulas", "Persuasive rhetorical devices (Alliteration, Facts, Opinions, etc.)", "Chemical equations", "Bibliography formatting rules"],
+                answer: 1,
+                explanation: "AFOREST is a popular mnemonic for persuasive writing techniques (Alliteration, Facts, Opinions, Rhetorical questions, Emotive language, Statistics, Triples)."
+            }
+        ];
+        let currentQuizIndex = 0;
+        let quizScore = 0;
+        let quizAnswered = false;
+
+        // --- Initialization & UI Routing ---
+        window.onload = function() {
+            renderCourses('all');
+            renderLiveClasses();
+            renderResources('all');
+            renderCommunityPosts();
+            renderQuiz();
+            startLiveCountdowns();
+        };
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => {
+                el.classList.remove('text-brand-600', 'dark:text-brand-400', 'bg-brand-50', 'dark:bg-slate-700');
+                el.classList.add('text-slate-600', 'dark:text-slate-300');
+            });
+
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            const activeBtn = document.getElementById('nav-' + tabId);
+            if (activeBtn) {
+                activeBtn.classList.remove('text-slate-600', 'dark:text-slate-300');
+                activeBtn.classList.add('text-brand-600', 'dark:text-brand-400', 'bg-brand-50', 'dark:bg-slate-700');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        // --- Multilingual Toggle ---
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'my' : 'en';
+            document.getElementById('lang-label').innerText = currentLang === 'en' ? 'မြန်မာ' : 'English';
+
+            if (currentLang === 'my') {
+                document.body.classList.add('burmese-font');
+            } else {
+                document.body.classList.remove('burmese-font');
+            }
+
+            // Apply translation to elements with data-translate
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+            showNotification(currentLang === 'my' ? 'မြန်မာဘာသာသို့ ပြောင်းလိုက်ပါပြီ' : 'Switched to English', 'success');
+        }
+
+        // --- Dark Mode Toggle ---
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            document.documentElement.classList.toggle('dark', darkMode);
+            showNotification(darkMode ? 'Dark mode enabled' : 'Light mode enabled', 'success');
+        }
+
+        // --- Toast Notification ---
+        function showNotification(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const msgEl = document.getElementById('toast-msg');
+            const iconEl = document.getElementById('toast-icon');
+
+            msgEl.innerText = message;
+            iconEl.className = type === 'success' ? 'fa-solid fa-circle-check text-emerald-400' : 'fa-solid fa-circle-exclamation text-amber-400';
+
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        // --- Courses Rendering & Enrollment ---
+        function filterCourses(category) {
+            document.querySelectorAll('.course-filter-btn').forEach(btn => {
+                btn.className = "course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition";
+            });
+            event.target.className = "course-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow-sm transition";
+            renderCourses(category);
+        }
+
+        function renderCourses(category) {
+            const grid = document.getElementById('courses-grid');
+            grid.innerHTML = '';
+
+            const filtered = category === 'all' ? coursesData : coursesData.filter(c => c.category === category);
+
+            filtered.forEach(course => {
+                const isEnrolled = enrolledCourseIds.includes(course.id);
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition flex flex-col overflow-hidden";
+                card.innerHTML = `
+                    <div class="p-6 flex-grow">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-800">${course.category}</span>
+                            <span class="text-xs font-bold text-slate-500 dark:text-slate-400"><i class="fa-solid fa-clock mr-1"></i>${course.duration}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-2">${course.title}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 text-xs line-clamp-2 mb-4">${course.desc}</p>
+                        <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 pt-3 border-t border-slate-100 dark:border-slate-700/60">
+                            <span><i class="fa-solid fa-user-tie mr-1 text-brand-500"></i>${course.instructor}</span>
+                            <span class="font-bold text-slate-900 dark:text-white text-sm">${course.price}</span>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                        <span class="text-xs font-medium text-slate-500">${course.level}</span>
+                        <button onclick="toggleEnroll(${course.id})" class="px-4 py-2 rounded-xl text-xs font-semibold ${isEnrolled ? 'bg-emerald-600 hover:bg-emerald-700 text-white' : 'bg-brand-600 hover:bg-brand-700 text-white'} shadow transition">
+                            ${isEnrolled ? '<i class="fa-solid fa-check mr-1"></i> Enrolled' : 'Enroll Now'}
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function toggleEnroll(courseId) {
+            if (enrolledCourseIds.includes(courseId)) {
+                enrolledCourseIds = enrolledCourseIds.filter(id => id !== courseId);
+                showNotification('Course enrollment removed.', 'warning');
+            } else {
+                enrolledCourseIds.push(courseId);
+                showNotification('Successfully enrolled in course!', 'success');
+            }
+            // Re-render current filter
+            const activeFilterBtn = document.querySelector('.course-filter-btn.bg-brand-600');
+            const cat = activeFilterBtn ? (activeFilterBtn.innerText.includes('GED') ? 'GED' : activeFilterBtn.innerText.includes('IGCSE') ? 'IGCSE' : activeFilterBtn.innerText.includes('English') ? 'English' : 'all') : 'all';
+            renderCourses(cat);
+        }
+
+        // --- Live Class Timers & Schedule ---
+        function renderLiveClasses() {
+            const container = document.getElementById('live-classes-container');
+            container.innerHTML = '';
+
+            liveClassesData.forEach((cls, idx) => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4";
+                card.innerHTML = `
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 uppercase">${cls.date}</span>
+                            <span class="text-xs text-slate-500"><i class="fa-solid fa-clock mr-1"></i>${cls.time}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-base">${cls.title}</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Instructor: ${cls.instructor} | Platform: <span class="font-semibold text-brand-600">${cls.platform}</span></p>
+                    </div>
+                    <div class="flex flex-col sm:items-end w-full sm:w-auto gap-2">
+                        <div class="text-xs font-mono font-bold bg-slate-100 dark:bg-slate-900 px-3 py-1.5 rounded-lg text-brand-600 dark:text-brand-400 border border-slate-200 dark:border-slate-700" id="timer-${idx}">
+                            Calculating timer...
+                        </div>
+                        <button onclick="joinLiveClass('${cls.platform}')" class="w-full sm:w-auto px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-xs shadow transition flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-video"></i> Join Live Class
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function startLiveCountdowns() {
+            setInterval(() => {
+                liveClassesData.forEach((cls, idx) => {
+                    const timerEl = document.getElementById(`timer-${idx}`);
+                    if (!timerEl) return;
+
+                    const diff = cls.timestamp - Date.now();
+                    if (diff <= 0) {
+                        timerEl.innerHTML = `<span class="text-emerald-500 flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> LIVE NOW</span>`;
+                    } else {
+                        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+                        const mins = Math.floor((diff / 1000 / 60) % 60);
+                        const secs = Math.floor((diff / 1000) % 60);
+                        timerEl.innerHTML = `<i class="fa-solid fa-hourglass-start mr-1 text-amber-500"></i> Starts in ${hours}h ${mins}m ${secs}s`;
+                    }
+                });
+            }, 1000);
+        }
+
+        function joinLiveClass(platform) {
+            showNotification(`Connecting securely to ${platform} live classroom...`, 'success');
+        }
+
+        // --- GED Diagnostic Quiz Widget ---
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (currentQuizIndex >= quizQuestions.length) {
+                // Show Quiz Result
+                const percentage = Math.round((quizScore / quizQuestions.length) * 100);
+                container.innerHTML = `
+                    <div class="text-center py-8 space-y-4">
+                        <div class="w-20 h-20 bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto shadow-inner">
+                            <i class="fa-solid fa-award"></i>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white">Diagnostic Quiz Completed!</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400 max-w-md mx-auto">You scored <strong class="text-brand-600 text-lg">${quizScore} / ${quizQuestions.length}</strong> (${percentage}%). ${percentage >= 70 ? 'Fantastic readiness level! You are well on your way to passing the official GED exam.' : 'Keep studying with Shar Education courses to bridge your knowledge gaps.'}</p>
+                        <button onclick="resetQuiz()" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow transition">
+                            Retake Quiz
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+
+            const q = quizQuestions[currentQuizIndex];
+            container.innerHTML = `
+                <div class="space-y-6">
+                    <div class="flex justify-between items-center text-xs text-slate-500">
+                        <span>Question ${currentQuizIndex + 1} of ${quizQuestions.length}</span>
+                        <span>Score: ${quizScore}</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">${q.question}</h3>
+                    <div class="space-y-3" id="quiz-options">
+                        ${q.options.map((opt, idx) => `
+                            <button onclick="selectQuizOption(${idx})" class="w-full text-left p-4 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 bg-slate-50 dark:bg-slate-900/50 font-medium text-sm transition flex items-center justify-between group">
+                                <span>${opt}</span>
+                                <span class="w-6 h-6 rounded-full border border-slate-300 dark:border-slate-600 flex items-center justify-center text-xs group-hover:border-brand-500 group-hover:bg-brand-500 group-hover:text-white transition"></span>
+                            </button>
+                        `).join('')}
+                    </div>
+                    <div id="quiz-feedback" class="hidden p-4 rounded-xl text-sm font-medium"></div>
+                    <div class="flex justify-end pt-2">
+                        <button id="next-quiz-btn" onclick="nextQuizQuestion()" class="hidden px-6 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow transition">
+                            Next Question <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            quizAnswered = false;
+        }
+
+        function selectQuizOption(selectedIndex) {
+            if (quizAnswered) return;
+            quizAnswered = true;
+
+            const q = quizQuestions[currentQuizIndex];
+            const optionBtns = document.querySelectorAll('#quiz-options button');
+            const feedbackEl = document.getElementById('quiz-feedback');
+            const nextBtn = document.getElementById('next-quiz-btn');
+
+            optionBtns.forEach((btn, idx) => {
+                if (idx === q.answer) {
+                    btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'border-slate-200');
+                    btn.classList.add('bg-emerald-50', 'dark:bg-emerald-900/30', 'border-emerald-500', 'text-emerald-700', 'dark:text-emerald-300');
+                } else if (idx === selectedIndex) {
+                    btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'border-slate-200');
+                    btn.classList.add('bg-rose-50', 'dark:bg-rose-900/30', 'border-rose-500', 'text-rose-700', 'dark:text-rose-300');
+                }
+            });
+
+            if (selectedIndex === q.answer) {
+                quizScore++;
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> Correct! ${q.explanation}`;
+            } else {
+                feedbackEl.className = "p-4 rounded-xl text-sm font-medium bg-rose-50 dark:bg-rose-900/30 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800";
+                feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-2"></i> Incorrect. ${q.explanation}`;
+            }
+
+            feedbackEl.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+
+        function nextQuizQuestion() {
+            currentQuizIndex++;
+            renderQuiz();
+        }
+
+        function resetQuiz() {
+            currentQuizIndex = 0;
+            quizScore = 0;
+            renderQuiz();
+        }
+
+        // --- Resources Library ---
+        function filterResources(type) {
+            document.querySelectorAll('.res-filter-btn').forEach(btn => {
+                btn.className = "res-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 transition";
+            });
+            event.target.className = "res-filter-btn px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white shadow-sm transition";
+            renderResources(type);
+        }
+
+        function renderResources(type) {
+            const grid = document.getElementById('resources-grid');
+            grid.innerHTML = '';
+
+            const filtered = type === 'all' ? resourcesData : resourcesData.filter(r => r.type === type);
+
+            filtered.forEach(res => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300">${res.type}</span>
+                            <span class="text-xs text-slate-400">${res.size}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white text-base mb-2">${res.title}</h3>
+                        <p class="text-xs text-slate-500 mb-4">Category: <span class="font-semibold text-brand-600">${res.category}</span></p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <span class="text-xs text-slate-400"><i class="fa-solid fa-download mr-1"></i>${res.downloads} downloads</span>
+                        <button onclick="downloadResource('${res.title}')" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-semibold shadow transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-download"></i> Download
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function downloadResource(title) {
+            showNotification(`Downloading "${title}" securely...`, 'success');
+        }
+
+        // --- Community Q&A Board ---
+        function renderCommunityPosts() {
+            const container = document.getElementById('community-posts-container');
+            const searchVal = document.getElementById('qa-search').value.toLowerCase();
+            const filterVal = document.getElementById('qa-filter').value;
+
+            container.innerHTML = '';
+
+            const filtered = communityPosts.filter(p => {
+                const matchesSearch = p.content.toLowerCase().includes(searchVal) || p.author.toLowerCase().includes(searchVal);
+                const matchesFilter = filterVal === 'all' || p.topic === filterVal;
+                return matchesSearch && matchesFilter;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center py-12 text-slate-400 text-sm">No Q&A posts found matching your criteria.</div>`;
+                return;
+            }
+
+            filtered.forEach((post, pIdx) => {
+                const card = document.createElement('div');
+                card.className = "bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4";
+                
+                let repliesHtml = '';
+                if (post.replies && post.replies.length > 0) {
+                    repliesHtml = `<div class="pl-4 sm:pl-6 border-l-2 border-brand-500 space-y-3 mt-4 pt-3 border-t border-slate-100 dark:border-slate-700">`;
+                    post.replies.forEach(r => {
+                        repliesHtml += `
+                            <div class="space-y-1">
+                                <div class="flex items-center justify-between text-xs">
+                                    <span class="font-bold text-slate-800 dark:text-slate-200">${r.author}</span>
+                                    <span class="text-slate-400">${r.time}</span>
+                                </div>
+                                <p class="text-xs text-slate-600 dark:text-slate-300">${r.content}</p>
+                            </div>
+                        `;
+                    });
+                    repliesHtml += `</div>`;
+                }
+
+                card.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-brand-100 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold text-sm">
+                                ${post.author.charAt(0)}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-slate-900 dark:text-white">${post.author}</h4>
+                                <span class="text-xs text-slate-400">${post.time}</span>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded text-xs font-semibold bg-brand-50 dark:bg-brand-900/40 text-brand-600 dark:text-brand-400 border border-brand-200 dark:border-brand-800">${post.topic}</span>
+                    </div>
+                    <p class="text-sm text-slate-700 dark:text-slate-200 font-medium">${post.content}</p>
+                    ${repliesHtml}
+                    <div class="pt-2 flex items-center justify-between text-xs text-slate-500">
+                        <span><i class="fa-solid fa-comments mr-1"></i>${post.replies.length} replies</span>
+                        <button onclick="openReplyPrompt(${post.id})" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 text-slate-700 dark:text-slate-200 font-medium transition">
+                            <i class="fa-solid fa-reply mr-1"></i> Reply
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openAskQuestionModal() {
+            document.getElementById('ask-modal').classList.remove('hidden');
+            document.getElementById('ask-modal').classList.add('flex');
+        }
+
+        function closeAskQuestionModal() {
+            document.getElementById('ask-modal').classList.remove('flex');
+            document.getElementById('ask-modal').classList.add('hidden');
+        }
+
+        function handlePostQuestion(e) {
+            e.preventDefault();
+            const author = document.getElementById('q-author').value;
+            const topic = document.getElementById('q-topic').value;
+            const content = document.getElementById('q-content').value;
+
+            communityPosts.unshift({
+                id: Date.now(),
+                author,
+                topic,
+                time: 'Just now',
+                content,
+                replies: []
+            });
+
+            closeAskQuestionModal();
+            renderCommunityPosts();
+            showNotification('Question posted successfully to community board!', 'success');
+            e.target.reset();
+        }
+
+        function openReplyPrompt(postId) {
+            const replyText = prompt("Type your reply to this student's question:");
+            if (replyText && replyText.trim() !== '') {
+                const post = communityPosts.find(p => p.id === postId);
+                if (post) {
+                    post.replies.push({
+                        author: 'You (Shar Member)',
+                        time: 'Just now',
+                        content: replyText.trim()
+                    });
+                    renderCommunityPosts();
+                    showNotification('Reply posted successfully!', 'success');
+                }
+            }
+        }
+
+        // --- Dashboard Modal ---
+        function openDashboardModal() {
+            const listContainer = document.getElementById('enrolled-courses-list');
+            listContainer.innerHTML = '';
+
+            const enrolled = coursesData.filter(c => enrolledCourseIds.includes(c.id));
+            if (enrolled.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-slate-400">You are not currently enrolled in any courses.</p>`;
+            } else {
+                enrolled.forEach(c => {
+                    const item = document.createElement('div');
+                    item.className = "flex items-center justify-between bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 text-xs";
+                    item.innerHTML = `
+                        <div>
+                            <span class="font-bold text-slate-900 dark:text-white block">${c.title}</span>
+                            <span class="text-slate-500">Instructor: ${c.instructor}</span>
+                        </div>
+                        <span class="px-2.5 py-1 rounded bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 font-bold">Active</span>
+                    `;
+                    listContainer.appendChild(item);
+                });
+            }
+
+            document.getElementById('dashboard-modal').classList.remove('hidden');
+            document.getElementById('dashboard-modal').classList.add('flex');
+        }
+
+        function closeDashboardModal() {
+            document.getElementById('dashboard-modal').classList.remove('flex');
+            document.getElementById('dashboard-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
